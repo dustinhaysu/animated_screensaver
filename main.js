@@ -1,3 +1,9 @@
+// link to instructions
+// https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_building_practice
+//Mayanwolfe 06 let's build an animated screensaver
+//the practical application of objects, classes, and constructors
+
+
 // set up our canvas
 //gives access to the drawing properties
 
@@ -33,6 +39,10 @@ class Ball {
     }
 
     //draw the object
+    // to test go live and open console
+    //input: const testBall = new Ball(50, 100, 4, 4, 'blue', 10)
+    // input: console.log(testBall)
+    // input: testBall.draw() - a ball will appear in screen if everything is correct
 
     draw(){
         ctx.beginPath(); //start drawing shape
@@ -56,12 +66,28 @@ class Ball {
         }
         //if hits bottom of screen
         if((this.y - this.size) <= 0 ) {
-            this.velY = -(this.velY);
+            this.velY = -(this.velY); 
         }
 
         //move the ball redraws location of ball at x or y and  by velX or velY
         this.x += this.velX;
         this.y += this.velY; 
+    }
+
+// method creates a strobe effect whenever balls run into each other the math is complicated and not necessary for the program to run. could be used to adjust ball size among other things. 
+
+    collisionDetect(){
+        for (const ball of balls) {
+            if (!(this === ball)) {
+                const dx = this.x - ball.x
+                const dy = this.y - ball.y
+                const distance = Math.sqrt(dx * dx + dy * dy)
+
+                if (distance < this.size + ball.size) {
+                    ball.color = this.ball = randomRGB()
+                }
+            }
+        }
     }
 }
 
@@ -69,7 +95,7 @@ class Ball {
 const balls = []
 
 // have a certain number of balls on the screen 
-while (balls.length < 10) {
+while (balls.length < 150) {
     // variable for size
     const size = random(10, 20);
     const ball = new Ball(//we are assigning values to all the constructors of class Ball
@@ -78,19 +104,29 @@ while (balls.length < 10) {
         random(1,4),//starter velocity-x
         random(1,4),//starter velocity-y
         randomRGB(), // assign color
-
+        size
     )
     balls.push(ball)//add new ball to end of balls array
 }
 
 //function that loops the animation
 function loop() {
+    ctx.fillStyle = 'rgba(0,0,0,0.09)'//#1
+    ctx.fillRect(0,0, width, height) //#2
     for (const ball of balls) {
         ball.draw()
         ball.update()
+        ball.collisionDetect()
     }
 
-    requestAnimationFrame(loop) // recursion - creates endless animation
+    requestAnimationFrame(loop) // recursion - creates endless animation // requestAnimationFrame() is a built in function
+    
+    
+    
+    // #1 wiping the screen by covering the previous frame fillStyle - see mdn
+   // disabling this will cause trails instead of balls
+   
+    // #2portion of the screen to be filled with ctx.fillStyle    
 }
 
 // initialize the function
