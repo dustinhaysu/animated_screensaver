@@ -24,3 +24,6 @@ h1, h2 {
     color: transparent;
     text-shadow: 0 0 4px white;
 }
+img {
+    display: none;
+}
