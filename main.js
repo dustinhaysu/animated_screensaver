@@ -76,28 +76,28 @@ class Ball {
 
 // method creates a strobe effect whenever balls run into each other the math is complicated and not necessary for the program to run. could be used to adjust ball size among other things. 
 
-    collisionDetect(){
-        for (const ball of balls) {
-            if (!(this === ball)) {
-                const dx = this.x - ball.x
-                const dy = this.y - ball.y
-                const distance = Math.sqrt(dx * dx + dy * dy)
+//     collisionDetect(){
+//         for (const ball of balls) {
+//             if (!(this === ball)) {
+//                 const dx = this.x - ball.x
+//                 const dy = this.y - ball.y
+//                 const distance = Math.sqrt(dx * dx + dy * dy)
 
-                if (distance < this.size + ball.size) {
-                    ball.color = this.ball = randomRGB()
-                }
-            }
-        }
-    }
-}
+//                 if (distance < this.size + ball.size) {
+//                     ball.color = this.ball = randomRGB()
+//                 }
+//             }
+//         }
+//     }
+ }
 
 // create an array called balls
 const balls = []
 
 // have a certain number of balls on the screen 
-while (balls.length < 150) {
+while (balls.length < 200) {
     // variable for size
-    const size = random(10, 20);
+    const size = random(50, 100);
     const ball = new Ball(//we are assigning values to all the constructors of class Ball
         random(0 + size, width - size), //x-coordinate-start point, keeps ball from forming off screen
         random(0 + size, height - size), // y coordinate -start point, keeps ball from forming off screen
@@ -116,7 +116,7 @@ function loop() {
     for (const ball of balls) {
         ball.draw()
         ball.update()
-        ball.collisionDetect()
+        //ball.collisionDetect()
     }
 
     requestAnimationFrame(loop) // recursion - creates endless animation // requestAnimationFrame() is a built in function
